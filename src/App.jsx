@@ -1,16 +1,18 @@
 import './App.css'
+import { useState } from 'react'
 import { Button } from './components/Button'
 import { Infotext } from './components/Infotext'
-import { Inputbox } from './components/Inputbox'
+import { Input } from './components/Input'
 
 function App() {
 
+  const [colorEnabled, setColorEnabled] = useState(false);
   return <div>
     <Base>
     <Infotext>Verify Your Age</Infotext>
       <div className="mb-8 text-xs">Please confirm your birth year. This data will not be stored.</div>
-      <Inputbox></Inputbox>
-      <Button>Continue</Button>
+      <Input type={"text"} placeholder={"Your Birth Year"} setColorEnabled={setColorEnabled}></Input>
+      <Button disabled={colorEnabled}>Continue</Button>
     </Base>
   </div>
 }
