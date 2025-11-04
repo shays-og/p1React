@@ -1,6 +1,6 @@
 import './App.css'
 import { useEffect, useState } from "react"
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Link, useNavigate } from 'react-router-dom'
 import { Layout } from './components/Layout'
 import { Button } from './components/Button'
 import { Input } from './components/Input'
@@ -8,11 +8,12 @@ import { Input } from './components/Input'
 function App() {
 
   return <>
-  <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<Userdata/ >}/>
-    </Routes>
-  </BrowserRouter>    
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Userdata />} />
+        <Route path="/otp" element={<Otppage />} />
+      </Routes>
+    </BrowserRouter>
   </>
 }
 
@@ -21,62 +22,80 @@ function Userdata() {
   const [continued, setContinued] = useState(false);
   const [userInput, setUserInput] = useState("");
   const [userEmail, setUserEmail] = useState("");
+  const navigate = useNavigate();
 
 
   const buttonOnClick = () => {
     setContinued(true);
     setColorEnabled(false);
     setUserInput("");
- 
+
   }
 
   const dateCheck = (e) => {
-      const value = e.target.value;
-      setUserInput(value);
-    }
-    useEffect(() => {
-      const timeOut = setTimeout(() => {
-        const date = new Date(userInput);
-        const today = new Date();
-        const ageYears = today.getFullYear() - date.getFullYear();
-        const ageMonth = today.getMonth() - date.getMonth();
-        const ageDay = today.getDay() - date.getDay();
-        if (ageYears > 18 || (ageYears === 18 && ageMonth > 0) || (ageYears === 18 && ageMonth === 0 && ageDay >= 0) ) {
-          console.log("Checking logic for age verification.");
-          setColorEnabled(true);
-        }
-      }, 1000)
-  
-      return () => clearTimeout(timeOut);
-    }, [userInput])
+    const value = e.target.value;
+    setUserInput(value);
+  }
+  useEffect(() => {
+    const timeOut = setTimeout(() => {
+      const date = new Date(userInput);
+      const today = new Date();
+      const ageYears = today.getFullYear() - date.getFullYear();
+      const ageMonth = today.getMonth() - date.getMonth();
+      const ageDay = today.getDay() - date.getDay();
+      if (ageYears > 18 || (ageYears === 18 && ageMonth > 0) || (ageYears === 18 && ageMonth === 0 && ageDay >= 0)) {
+        console.log("Checking logic for age verification.");
+        setColorEnabled(true);
+      }
+    }, 1000)
+
+    return () => clearTimeout(timeOut);
+  }, [userInput])
 
 
-    const mailCheck = (e) => {
-      const value = e.target.value;
-      setUserEmail(value);
-      console.log("Valid Mail")
-    }
+  const mailCheck = (e) => {
+    const value = e.target.value;
+    setUserEmail(value);
+    console.log("Valid Mail");
+    setColorEnabled(true);
+  }
 
-    if (continued) {
-      return (<div>
-        <Layout 
-        textHead={"Let's Get Started"} 
+  const continueButton = () => {
+    navigate("/otp")
+  }
+
+  return (
+    <>
+      {continued ? (<Layout
+        textHead={"Let's Get Started"}
         description={""}>
-          <Input type={"text"} placeholder={"EmailId"} userInput={userEmail} validCheck={mailCheck} />
-          <Button onClick={buttonOnClick} disabled={colorEnabled}>Continue</Button>
-        </Layout>
-      </div>)
-    } else {
-      return (<div>
-        <Layout 
-        textHead={"Verify Your Age"} 
-        description={"Please confirm your birth year. This data will not be stored."}>
+        <Input type={"text"} placeholder={"EmailId"} userInput={userEmail} validCheck={mailCheck} />
+        <Button onClick={continueButton} disabled={colorEnabled}>Continue</Button>
+      </Layout>
+      ) : (
+        <Layout
+          textHead={"Verify Your Age"}
+          description={"Please confirm your birth year. This data will not be stored."}>
           <Input type={"text"} placeholder={"Your Birth Year"} userInput={userInput} validCheck={dateCheck} />
           <Button onClick={buttonOnClick} disabled={colorEnabled}>Continue</Button>
         </Layout>
-      </div>)
-    }
-  
+      )}
+    </>
+  );
+
+
 }
+
+
+function Otppage() {
+  return <>
+  <Layout
+        textHead={"Check Your Email For A Code"}
+        description={"Please enter the verification code sent to your email id ..."}>
+        <Button onClick={continueButton} disabled={colorEnabled}>Verify</Button>
+      </Layout>
+  </> 
+}
+
 
 export default App
