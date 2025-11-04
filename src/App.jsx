@@ -22,8 +22,7 @@ function App() {
 function Ageverification() {
   const [colorEnabled, setColorEnabled] = useState(false);  
   return (<div>
-    <Layout>
-      <Infotext>Verify Your Age</Infotext>
+    <Layout textHead={"Verify Your Age"}>
       <div className="mb-8 text-xs">Please confirm your birth year. This data will not be stored.</div>
       <Input type={"text"} placeholder={"Your Birth Year"} setColorEnabled={setColorEnabled}></Input>
       <Button disabled={colorEnabled}>Continue</Button>
@@ -31,12 +30,19 @@ function Ageverification() {
   </div>)
 }
 
-function Layout({ children }) {
+function Layout({ textHead, children }) {
   return <div className="flex flex-col justify-center items-center bg-prussian-blue h-screen text-white">
     <div className="mb-16 -mt-16 text-xl">
       <span className="text-turquoise">Webinar</span>.gg
     </div>
+    <div className="mb-16  text-xl">{textHead}</div>
     {children}
+  </div>
+}
+
+function Hithere() {
+  return <div>
+    <h1>Hi there</h1>
   </div>
 }
 export default App
