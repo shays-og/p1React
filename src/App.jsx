@@ -10,30 +10,30 @@ function App() {
   return <>
   <BrowserRouter>
     <Routes>
-      <Route path="/" element={<Ageverification/ >}/>
+      <Route path="/" element={<Userdata/ >}/>
     </Routes>
   </BrowserRouter>    
   </>
 }
 
-function Ageverification() {
+function Userdata() {
   const [colorEnabled, setColorEnabled] = useState(false);
+  const [continued, setContinued] = useState(false);
 
+  const buttonOnClick = () => {
+    setContinued(true);
+    if (continued){
+
+    };
+  }
   return (<div>
     <Layout 
     textHead={"Verify Your Age"} 
     description={"Please confirm your birth year. This data will not be stored."}>
       <Input type={"text"} placeholder={"Your Birth Year"} setColorEnabled={setColorEnabled} />
-      <Button disabled={colorEnabled}>Continue</Button>
+      <Button onClick={buttonOnClick} disabled={colorEnabled}>Continue</Button>
     </Layout>
   </div>)
 }
 
-
-
-function Hithere() {
-  return <div>
-    <h1>Hi there</h1>
-  </div>
-}
 export default App
