@@ -1,16 +1,26 @@
 import './App.css'
 import { useState } from 'react'
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 import { Button } from './components/Button'
 import { Infotext } from './components/Infotext'
 import { Input } from './components/Input'
 
 function App() {
 
-  return <Ageverification/ >
+  return <>
+  <BrowserRouter>
+
+    <Routes>
+      <Route path="/" element={<Ageverification/ >}/>
+    </Routes>
+  </BrowserRouter>
+
+    
+  </>
 }
 
 function Ageverification() {
-  const [colorEnabled, setColorEnabled] = useState(false);
+  const [colorEnabled, setColorEnabled] = useState(false);  
   return (<div>
     <Layout>
       <Infotext>Verify Your Age</Infotext>
