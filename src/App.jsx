@@ -6,19 +6,20 @@ import { Button } from './components/Button'
 import { Input } from './components/Input'
 
 function App() {
+  const [colorEnabled, setColorEnabled] = useState(false);
+
 
   return <>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Userdata />} />
-        <Route path="/otp" element={<Otppage />} />
+        <Route path="/" element={<Userdata colorEnabled={colorEnabled} setColorEnabled={setColorEnabled} />} />
+        <Route path="/otp" element={<Otppage colorEnabled={colorEnabled}/>} />
       </Routes>
     </BrowserRouter>
   </>
 }
 
-function Userdata() {
-  const [colorEnabled, setColorEnabled] = useState(false);
+function Userdata({ colorEnabled, setColorEnabled }) {
   const [continued, setContinued] = useState(false);
   const [userInput, setUserInput] = useState("");
   const [userEmail, setUserEmail] = useState("");
@@ -62,6 +63,7 @@ function Userdata() {
 
   const continueButton = () => {
     navigate("/otp")
+    console.log("Problem in navigating to /otp route")
   }
 
   return (
@@ -76,7 +78,7 @@ function Userdata() {
         <Layout
           textHead={"Verify Your Age"}
           description={"Please confirm your birth year. This data will not be stored."}>
-          <Input type={"text"} placeholder={"Your Birth Year"} userInput={userInput} validCheck={dateCheck} />
+            <Input type={"text"} placeholder={"Your Birth Year"} userInput={userInput} validCheck={dateCheck} />
           <Button onClick={buttonOnClick} disabled={colorEnabled}>Continue</Button>
         </Layout>
       )}
@@ -87,7 +89,11 @@ function Userdata() {
 }
 
 
-function Otppage() {
+function Otppage({ colorEnabled }) {
+
+  const continueButton = () => {
+    console.log("Verification log on OTP page")
+  }
   return <>
   <Layout
         textHead={"Check Your Email For A Code"}
