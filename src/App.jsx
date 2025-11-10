@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route, Link, useNavigate } from 'react-router-do
 import { Layout } from './components/Layout'
 import { Button } from './components/Button'
 import { Input } from './components/Input'
+import { Otp } from './components/Otp'
 
 function App() {
   const [colorEnabled, setColorEnabled] = useState(false);
@@ -13,7 +14,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Userdata colorEnabled={colorEnabled} setColorEnabled={setColorEnabled} />} />
-        <Route path="/otp" element={<Otppage colorEnabled={colorEnabled}/>} />
+        <Route path="/otp" element={<Otp colorEnabled={colorEnabled}/>} />
       </Routes>
     </BrowserRouter>
   </>
@@ -63,7 +64,9 @@ function Userdata({ colorEnabled, setColorEnabled }) {
 
   const continueButton = () => {
     navigate("/otp")
-    console.log("Problem in navigating to /otp route")
+    console.log("Problem solved in navigating to /otp route");
+    setColorEnabled(false);
+
   }
 
   return (
@@ -88,20 +91,31 @@ function Userdata({ colorEnabled, setColorEnabled }) {
 
 }
 
+// function Otp({ colorEnabled }) {
 
-function Otppage({ colorEnabled }) {
+//     const continueButton = () => {
+//       console.log("Verification log on OTP page")
+//     }
 
-  const continueButton = () => {
-    console.log("Verification log on OTP page")
-  }
-  return <>
-  <Layout
-        textHead={"Check Your Email For A Code"}
-        description={"Please enter the verification code sent to your email id ..."}>
-        <Button onClick={continueButton} disabled={colorEnabled}>Verify</Button>
-      </Layout>
-  </> 
-}
+//     return <>
+//     <Layout
+//           textHead={"Check Your Email For A Code"}
+//           description={"Please enter the verification code sent to your email id ..."}>
+//           <InputOtp />
+//           <Button onClick={continueButton} disabled={colorEnabled}>Verify</Button>
+//         </Layout>
+//     </> 
+//   }
 
-
+//   function InputOtp() {
+    
+//     return <>
+//       <input type='text' className='bg-[#18395F] w-12 h-8 m-2 p-4' />
+//       <input type='text' className='bg-[#18395F] w-12 h-8 m-2 p-4' />
+//       <input type='text' className='bg-[#18395F] w-12 h-8 m-2 p-4' />
+//       <input type='text' className='bg-[#18395F] w-12 h-8 m-2 p-4' />
+//       <input type='text' className='bg-[#18395F] w-12 h-8 m-2 p-4' />
+//       <input type='text' className='bg-[#18395F] w-12 h-8 m-2 p-4' />
+//       </>
+//   }
 export default App
